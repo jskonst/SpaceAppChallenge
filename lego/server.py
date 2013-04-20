@@ -1,13 +1,14 @@
-# -*- coding=utf8 -*-
-'''
-Created on 14.04.2011
-
-@author: jskonst
-'''
+# -*- coding:utf8 -*-
+import socket
 import drive
 import nxt
 
-while 1:
+host = "192.168.100.176"
+port = 5678
+
+
+
+def action(a):
     b = nxt.find_one_brick(name='MyNXT')
     drive1 = drive.Drive(b, nxt.PORT_B)
     drive2 = drive.Drive(b, nxt.PORT_C)
@@ -17,13 +18,11 @@ while 1:
     drive2.start()
     drive1.stop()
     drive2.stop()
-    a = raw_input()
     if a == "q":
         drive1.stop()
         drive2.stop()
         drive1.join()
         drive2.join()
-        break
     else:
         if a == "w":
             print "Вперед"
@@ -33,11 +32,10 @@ while 1:
             drive2.join()
             drive1 = drive.Drive(b, nxt.PORT_B)
             drive2 = drive.Drive(b, nxt.PORT_C)
-            drive1.SetParam()
-            drive2.SetParam()
+            drive1.SetParam(degree=180)
+            drive2.SetParam(degree=180)
             drive1.start()
             drive2.start()
-            continue
         if a == "s":
             print "Назад"
             drive1.stop()
@@ -48,11 +46,10 @@ while 1:
             drive1 = drive.Drive(b, nxt.PORT_B)
             drive2 = drive.Drive(b, nxt.PORT_C)
 
-            drive1.SetParam(-1)
-            drive2.SetParam(-1)
+            drive1.SetParam(-1,degree=180)
+            drive2.SetParam(-1,degree=180)
             drive1.start()
             drive2.start()
-            continue
         if a == "a":
             print "Влево"
 
@@ -64,11 +61,10 @@ while 1:
             drive1 = drive.Drive(b, nxt.PORT_B)
             drive2 = drive.Drive(b, nxt.PORT_C)
 
-            drive1.SetParam(1, 50)
-            drive2.SetParam(-1, 50)
+            drive1.SetParam(1, 50,degree=180)
+            drive2.SetParam(-1, 50,degree=180)
             drive1.start()
             drive2.start()
-            continue
         if a == "d":
             print "Вправо"
             drive1.stop()
@@ -79,11 +75,10 @@ while 1:
             drive1 = drive.Drive(b, nxt.PORT_B)
             drive2 = drive.Drive(b, nxt.PORT_C)
 
-            drive1.SetParam(-1, 50)
-            drive2.SetParam(1, 50)
+            drive1.SetParam(-1, 50,degree=180)
+            drive2.SetParam(1, 50,degree=180)
             drive1.start()
             drive2.start()
-            continue
         if a == "e":
             print "Стоп"
             drive1.stop()
@@ -91,4 +86,22 @@ while 1:
             drive1.join()
             drive2.join()
 
-            continue
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+s.bind((host, port))
+s.listen(1)
+while 1:
+    sock, addr = s.accept()
+    while 1:
+        buf = sock.recv(1024)
+        if buf == "exit":
+            sock.send("olol")
+            break
+        elif buf:
+            print buf
+            action(buf)
+            sock.send(buf)
+            break
+        sock.close()
+
