@@ -4,7 +4,6 @@ import drive
 import nxt
 import json
 import requests
-import time
 
 host = "192.168.100.169"
 port = 5678
@@ -116,8 +115,7 @@ while 1:
             if status == "c" :
                 for i in j['command']:
                     action(i, drive1, drive2)
-            else:
-                time.sleep (30)
+        
 
 #while 1:
 #    Connect("http://192.168.100.169:81/api", "waiting")
