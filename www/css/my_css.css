@@ -1,0 +1,21 @@
+.btn-striped-light-green-up {
+	border-color: #82ba00;
+	border-top-width: 3px;
+}
+.btn-striped-light-green:hover,
+.btn-striped-light-green-up:hover {
+	border-color: #a1cb55;
+}
+
+.btn-striped-light-green-right {
+	border-color: #82ba00;
+	border-right-width: 3px;
+}
+.btn-striped-light-green:hover,
+.btn-striped-light-green-right:hover {
+	border-color: #a1cb55;
+}
+button.send {
+	margin: 10px 0 20px 0;
+	padding: 10px 12px 7px;
+}
