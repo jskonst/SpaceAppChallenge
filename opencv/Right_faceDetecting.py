@@ -7,8 +7,7 @@ capture = cv.CaptureFromCAM(0)
 
 while True:  
     image = cv.QueryFrame(capture)  
-    cv.NamedWindow('Face detection', cv.CV_WINDOW_AUTOSIZE)
-    cv.SaveImage("./img.jpg", image)
+#    cv.NamedWindow('Face detection', cv.CV_WINDOW_AUTOSIZE)
     image_size = cv.GetSize(image)
     center_of_image_size = image_size[0]/2
     grayscale = cv.CreateImage(image_size, 8, 1)
@@ -47,8 +46,8 @@ while True:
             difference = center_of_image_size - center_of_rectangle    
             print difference         
 
-
-    cv.ShowImage('Face detection', image)
+    cv.SaveImage("./img.jpg", image)
+#    cv.ShowImage('Face detection', image)
     if cv.WaitKey(10) == 27:  # Ждем нажатия кнопки Esc и после 10 милисекунд
         break  # Выходим из цикла
-cv.DestroyWindow('Face detection')
+#  cv.DestroyWindow('Face detection')
