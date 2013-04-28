@@ -58,6 +58,8 @@ def action(a, drive1, drive2):
             drive1.start()
             drive2.start()
         if a == "a":
+            if StatusOfButton == True :
+                return  
             print "Влево"
 
             drive1.stop()
@@ -73,6 +75,8 @@ def action(a, drive1, drive2):
             drive1.start()
             drive2.start()
         if a == "d":
+            if StatusOfButton == True :
+                return  
             print "Вправо"
             drive1.stop()
             drive2.stop()
@@ -106,7 +110,7 @@ def Connect (Ad, Par):
 #s.listen(1)
 #Connect(, "waiting")
 while 1:
-    r=requests.post("http://192.168.100.169:81/api", data={'waiting':'salt'})
+    r=requests.post("http://192.168.0.109:81/api", data={'waiting':'salt'})
     #print r.request
     if r.content:
         j=json.loads(r.content)
@@ -117,7 +121,7 @@ while 1:
                 for i in j['command']:
                     action(i, drive1, drive2)
             else:
-                time.sleep (30)
+                time.sleep (5)
 
 #while 1:
 #    Connect("http://192.168.100.169:81/api", "waiting")
