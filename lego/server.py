@@ -5,8 +5,9 @@ import nxt
 import json
 import requests
 import time
+import test_sensors
 
-host = "192.168.100.169"
+host = "localhost"
 port = 5678
 
 
@@ -110,7 +111,7 @@ def Connect (Ad, Par):
 #s.listen(1)
 #Connect(, "waiting")
 while 1:
-    r=requests.post("http://192.168.0.109:81/api", data={'waiting':'salt'})
+    r=requests.post("http://localhost", data={'waiting':'salt'})
     #print r.request
     if r.content:
         j=json.loads(r.content)
